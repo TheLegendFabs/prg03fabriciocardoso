@@ -4,7 +4,7 @@
 
 **Data de Criação:** 21/08/2026
 
-**Autor:** Fabricio
+**Autor:** Fabricio Cardoso
 
 **Cargo:** Técnico de Suporte de Ti
 
