@@ -64,7 +64,7 @@ public class LoginView extends javax.swing.JFrame {
         btnEnter.setBorderPainted(false);
         btnEnter.addActionListener(this::btnEnterActionPerformed);
 
-        lblResult.setBackground(new java.awt.Color(102, 102, 255));
+        lblResult.setBackground(new java.awt.Color(153, 204, 255));
         lblResult.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblResult.setForeground(new java.awt.Color(255, 255, 255));
         lblResult.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
