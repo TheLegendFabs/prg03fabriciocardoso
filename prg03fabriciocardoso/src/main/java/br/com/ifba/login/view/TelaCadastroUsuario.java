@@ -4,6 +4,7 @@
  */
 package br.com.ifba.login.view;
 
+import br.com.ifba.usuario.validar.ValidarUsuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -221,10 +222,14 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         } else if (!confirmarSenha.equals(senha)){
             JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
          } else {
+            if(ValidarUsuario.contemPalavraProibida(login)){
+                JOptionPane.showMessageDialog(null, "Login contém palavra não permitida!");
+            } else {
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
         LoginView telaLogin = new LoginView();
         telaLogin.setVisible(true);
         this.dispose();
+            }
         }
     }//GEN-LAST:event_BtnConfirmarActionPerformed
 
