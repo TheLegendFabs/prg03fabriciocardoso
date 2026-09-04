@@ -43,7 +43,7 @@
                           <Component id="txtNomeComp" max="32767" attributes="0"/>
                           <Component id="txtCpf" max="32767" attributes="0"/>
                           <Component id="boxGen" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
-                          <Component id="txtDatansc" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
+                          <Component id="txtDataNsc" alignment="0" min="-2" pref="101" max="-2" attributes="0"/>
                           <Component id="txtTelefone" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtEmail" max="32767" attributes="0"/>
                           <Component id="txtLogin" max="32767" attributes="0"/>
@@ -53,9 +53,9 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="93" max="-2" attributes="0"/>
+                      <Component id="BtnConfirmar" min="-2" pref="93" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="93" max="-2" attributes="0"/>
+                      <Component id="BtnCancelar" min="-2" pref="93" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
@@ -83,7 +83,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="txtDatansc" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDataNsc" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -112,8 +112,8 @@
               </Group>
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="BtnConfirmar" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="BtnCancelar" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="71" max="32767" attributes="0"/>
           </Group>
@@ -203,11 +203,10 @@
     <Component class="javax.swing.JComboBox" name="boxGen">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Selecione"/>
+            <StringItem index="1" value="Masculino"/>
+            <StringItem index="2" value="Feminino"/>
           </StringArray>
         </Property>
       </Properties>
@@ -218,7 +217,7 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDatansc">
+    <Component class="javax.swing.JTextField" name="txtDataNsc">
     </Component>
     <Component class="javax.swing.JTextField" name="txtTelefone">
     </Component>
@@ -233,7 +232,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtConfirmPassWrdActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="BtnConfirmar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Confirmar"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -245,8 +244,11 @@
         </Property>
         <Property name="borderPainted" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnConfirmarActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="BtnCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -258,6 +260,10 @@
         </Property>
         <Property name="borderPainted" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BtnCancelarMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnCancelarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
