@@ -4,6 +4,8 @@
  */
 package br.com.ifba.login.view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Alfa
@@ -17,6 +19,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
      */
     public TelaCadastroUsuario() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -40,14 +43,14 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         txtNomeComp = new javax.swing.JTextField();
         txtCpf = new javax.swing.JTextField();
         boxGen = new javax.swing.JComboBox<>();
-        txtDatansc = new javax.swing.JTextField();
+        txtDataNsc = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtLogin = new javax.swing.JTextField();
         txtPassWrd = new javax.swing.JPasswordField();
         txtConfirmPassWrd = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        BtnConfirmar = new javax.swing.JButton();
+        BtnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,18 +83,25 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         txtNomeComp.addActionListener(this::txtNomeCompActionPerformed);
 
-        boxGen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boxGen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Masculino", "Feminino" }));
         boxGen.addActionListener(this::boxGenActionPerformed);
 
         txtConfirmPassWrd.addActionListener(this::txtConfirmPassWrdActionPerformed);
 
-        jButton1.setText("Confirmar");
-        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
-        jButton1.setBorderPainted(false);
+        BtnConfirmar.setText("Confirmar");
+        BtnConfirmar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        BtnConfirmar.setBorderPainted(false);
+        BtnConfirmar.addActionListener(this::BtnConfirmarActionPerformed);
 
-        jButton2.setText("Cancelar");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
-        jButton2.setBorderPainted(false);
+        BtnCancelar.setText("Cancelar");
+        BtnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        BtnCancelar.setBorderPainted(false);
+        BtnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnCancelarMouseClicked(evt);
+            }
+        });
+        BtnCancelar.addActionListener(this::BtnCancelarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,7 +126,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                             .addComponent(txtNomeComp)
                             .addComponent(txtCpf)
                             .addComponent(boxGen, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDatansc, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataNsc, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTelefone)
                             .addComponent(txtEmail)
                             .addComponent(txtLogin)
@@ -124,9 +134,9 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                             .addComponent(txtConfirmPassWrd, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BtnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(68, 68, 68)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(63, 63, 63))
         );
         layout.setVerticalGroup(
@@ -147,7 +157,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDatansc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataNsc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,8 +180,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                     .addComponent(txtConfirmPassWrd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BtnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
@@ -189,6 +199,43 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private void txtConfirmPassWrdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmPassWrdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConfirmPassWrdActionPerformed
+
+    private void BtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConfirmarActionPerformed
+        // Guardo os valores dos campos
+        String nomeCompleto = txtNomeComp.getText();
+        String cpf = txtCpf.getText();
+        String telefone = txtTelefone.getText();
+        String dataDeNasc = txtDataNsc.getText();
+        String email = txtEmail.getText();
+        String login = txtLogin.getText();
+        String senha = new String(txtPassWrd.getPassword());
+        String confirmarSenha = new String(txtConfirmPassWrd.getPassword());
+        String genero = boxGen.getSelectedItem().toString();
+        
+        // Faço a verificação
+        if(nomeCompleto.isEmpty() || cpf.isEmpty() || telefone.isEmpty()
+        || dataDeNasc.isEmpty() || email.isEmpty() || login.isEmpty() ||
+        senha.isEmpty() || confirmarSenha.isEmpty() || genero.equals("Selecione")){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+        } else if (!confirmarSenha.equals(senha)){
+            JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+         } else {
+        JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+        LoginView telaLogin = new LoginView();
+        telaLogin.setVisible(true);
+        this.dispose();
+        }
+    }//GEN-LAST:event_BtnConfirmarActionPerformed
+
+    private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+        LoginView telaLogin = new LoginView();
+        telaLogin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnCancelarActionPerformed
+
+    private void BtnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCancelarMouseClicked
+        
+    }//GEN-LAST:event_BtnCancelarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -216,9 +263,9 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCancelar;
+    private javax.swing.JButton BtnConfirmar;
     private javax.swing.JComboBox<String> boxGen;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -230,7 +277,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField txtConfirmPassWrd;
     private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtDatansc;
+    private javax.swing.JTextField txtDataNsc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNomeComp;
