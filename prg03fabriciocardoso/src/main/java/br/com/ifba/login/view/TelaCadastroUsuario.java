@@ -6,6 +6,7 @@ package br.com.ifba.login.view;
 
 import br.com.ifba.usuario.validar.ValidarUsuario;
 import javax.swing.JOptionPane;
+import br.com.ifba.usuario.entity.Usuario;
 
 /**
  *
@@ -225,6 +226,19 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             if(ValidarUsuario.contemPalavraProibida(login)){
                 JOptionPane.showMessageDialog(null, "Login contém palavra não permitida!");
             } else {
+                // Instancia o objeto
+                Usuario usuario = new Usuario();
+
+                // Preenche o objeto com as variaveis
+                usuario.nome = nomeCompleto;
+                usuario.cpf = cpf;
+                usuario.telefone = telefone;
+                usuario.dataNascimento = dataDeNasc;
+                usuario.email = email;
+                usuario.login = login;
+                usuario.senha = senha;
+                usuario.genero = genero;
+                
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
         LoginView telaLogin = new LoginView();
         telaLogin.setVisible(true);
