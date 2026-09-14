@@ -4,6 +4,8 @@
  */
 package br.com.ifba.login.view;
 
+import br.com.ifba.usuario.entity.Usuario;
+
 /**
  *
  * @author Alfa
@@ -162,12 +164,14 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginActionPerformed
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
-        // 1. captura o que foi digitado nos campos
-        String loginDigitado = txtLogin.getText();
-        String senhaDigitada = new String(txtPassWrd.getPassword());
-        // 2. usa as variaveis para preencher o label
-        // 3. Utilizo o html para poder quebrar a linha do label, pois não não é suportado o /n
-        lblResult.setText("<html>Login digitado: " + loginDigitado + "<br>Senha digitada: " + senhaDigitada + "</html>");
+        // Instancia o objeto de dominio
+        Usuario usuario = new Usuario();
+        // Captura o que foi digitado e armazena direto nos atributos do objeto
+        usuario.login = txtLogin.getText();
+        usuario.senha = new String(txtPassWrd.getPassword());
+
+        // Usa o HTML para quebrar a linha e exibe os dados vindos do usuario
+        lblResult.setText("<html>Login digitado: " + usuario.login + "<br>Senha digitada: " + usuario.senha);
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
