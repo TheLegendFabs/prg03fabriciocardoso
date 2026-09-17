@@ -166,12 +166,12 @@ public class LoginView extends javax.swing.JFrame {
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
         // Instancia o objeto de dominio
         Usuario usuario = new Usuario();
-        // Captura o que foi digitado e armazena direto nos atributos do objeto
-        usuario.login = txtLogin.getText();
-        usuario.senha = new String(txtPassWrd.getPassword());
 
-        // Usa o HTML para quebrar a linha e exibe os dados vindos do usuario
-        lblResult.setText("<html>Login digitado: " + usuario.login + "<br>Senha digitada: " + usuario.senha);
+        usuario.setLogin(txtLogin.getText());
+        usuario.setSenha(new String(txtPassWrd.getPassword()));
+
+        lblResult.setText("<html>Login digitado: " + usuario.getLogin() + "<br>Senha digitada: " + usuario.getSenha());
+
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
