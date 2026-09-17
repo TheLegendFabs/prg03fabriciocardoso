@@ -229,15 +229,16 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                 // Instancia o objeto
                 Usuario usuario = new Usuario();
 
-                // Preenche o objeto com as variaveis
-                usuario.nome = nomeCompleto;
-                usuario.cpf = cpf;
-                usuario.telefone = telefone;
-                usuario.dataNascimento = dataDeNasc;
-                usuario.email = email;
-                usuario.login = login;
-                usuario.senha = senha;
-                usuario.genero = genero;
+                // Preenche o objeto usando os métodos set
+                usuario.setNome(nomeCompleto);
+                usuario.setCpf(cpf);
+                usuario.setTelefone(telefone);
+                usuario.setDataNascimento(dataDeNasc);
+                usuario.setEmail(email);
+                usuario.setLogin(login);
+                usuario.setSenha(senha);
+                usuario.setGenero(genero);
+                
                 
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
         LoginView telaLogin = new LoginView();
