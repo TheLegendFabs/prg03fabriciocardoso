@@ -214,37 +214,42 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         String senha = new String(txtPassWrd.getPassword());
         String confirmarSenha = new String(txtConfirmPassWrd.getPassword());
         String genero = boxGen.getSelectedItem().toString();
-        
-        // Faço a verificação
-        if(nomeCompleto.isEmpty() || cpf.isEmpty() || telefone.isEmpty()
-        || dataDeNasc.isEmpty() || email.isEmpty() || login.isEmpty() ||
-        senha.isEmpty() || confirmarSenha.isEmpty() || genero.equals("Selecione")){
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
-        } else if (!confirmarSenha.equals(senha)){
-            JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
-         } else {
-            if(ValidarUsuario.contemPalavraProibida(login)){
-                JOptionPane.showMessageDialog(null, "Login contém palavra não permitida!");
-            } else {
-                // Instancia o objeto
-                Usuario usuario = new Usuario();
 
-                // Preenche o objeto usando os métodos set
-                usuario.setNome(nomeCompleto);
-                usuario.setCpf(cpf);
-                usuario.setTelefone(telefone);
-                usuario.setDataNascimento(dataDeNasc);
-                usuario.setEmail(email);
-                usuario.setLogin(login);
-                usuario.setSenha(senha);
-                usuario.setGenero(genero);
-                
-                
-        JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
-        LoginView telaLogin = new LoginView();
-        telaLogin.setVisible(true);
-        this.dispose();
-            }
+        // Instancia a nova classe de validação
+        br.com.ifba.usuario.validar.ValidadorUsuario validador = new br.com.ifba.usuario.validar.ValidadorUsuario();
+
+        // Substitui as validações antigas pelas chamadas aos métodos testáveis
+        if (!validador.camposPreenchidos(nomeCompleto, cpf, login, senha)) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
+
+        } else if (!validador.senhasCoincidem(senha, confirmarSenha)) {
+            javax.swing.JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+
+        } else if (!validador.senhaForte(senha)) {
+            javax.swing.JOptionPane.showMessageDialog(null, "A senha é fraca! Deve ter pelo menos 6 caracteres.");
+
+        } else if (br.com.ifba.usuario.validar.ValidarUsuario.contemPalavraProibida(login)) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Login contém palavra não permitida!");
+
+        } else {
+            // se passar em tudo, faz o cadastro normal
+            br.com.ifba.usuario.entity.Usuario usuario = new br.com.ifba.usuario.entity.Usuario();
+
+           
+            usuario.setNome(nomeCompleto);
+            usuario.setCpf(cpf);
+            usuario.setLogin(login);
+            usuario.setSenha(senha);
+            usuario.setTelefone(telefone);
+            usuario.setDataNascimento(dataDeNasc);
+            usuario.setEmail(email);
+            usuario.setGenero(genero);
+
+            javax.swing.JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+
+            LoginView telaLogin = new LoginView();
+            telaLogin.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_BtnConfirmarActionPerformed
 
