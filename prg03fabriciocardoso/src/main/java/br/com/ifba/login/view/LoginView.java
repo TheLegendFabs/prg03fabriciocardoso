@@ -164,14 +164,21 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginActionPerformed
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
-        // Instancia o objeto de dominio
+       //instacia o objeto(só para o teste funcionar)
         Usuario usuario = new Usuario();
+        usuario.setLogin("admin");
+        usuario.setSenha("123");
 
-        usuario.setLogin(txtLogin.getText());
-        usuario.setSenha(new String(txtPassWrd.getPassword()));
+        //Captura o que foi digitado
+        String loginDigitado = txtLogin.getText();
+        String senhaDigitada = new String(txtPassWrd.getPassword());
 
-        lblResult.setText("<html>Login digitado: " + usuario.getLogin() + "<br>Senha digitada: " + usuario.getSenha());
-
+        //Chama o método da interface e exibe o JOptionPane
+        if (usuario.autenticar(loginDigitado, senhaDigitada)) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Acesso Liberado!");
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(null, "Acesso Negado!");
+        }
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
