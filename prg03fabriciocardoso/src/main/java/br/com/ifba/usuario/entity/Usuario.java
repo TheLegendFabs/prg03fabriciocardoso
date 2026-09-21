@@ -3,9 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package br.com.ifba.usuario.entity;
+import br.com.ifba.usuario.inteface.Autenticavel;
 
 
-public class Usuario {
+public class Usuario implements Autenticavel {
 
     private String nome;
     private  String cpf;
@@ -94,7 +95,14 @@ public class Usuario {
         this.senha = senha;
     }
     
-    
+    @Override
+    public boolean autenticar(String loginDigitado, String senhaDigitada) {
+        // Retorna true se o login e a senha coincidirem com this.login e this.senha
+        if (this.login.equals(loginDigitado) && this.senha.equals(senhaDigitada)) {
+            return true;
+        }
+        return false;
+    }
     
 
 }
