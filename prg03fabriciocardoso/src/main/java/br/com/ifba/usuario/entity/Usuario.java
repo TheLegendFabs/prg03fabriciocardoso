@@ -128,4 +128,9 @@ public class Usuario implements Autenticavel {
     public void setPerfilAtivo(Perfil perfilAtivo) {
         this.perfilAtivo = perfilAtivo;
     }
+    
+    // Método que será sobrescrito pelas classes filhas
+    public String obterPapel() {
+        return "Usuário Padrão";
+    }
 }
