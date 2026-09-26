@@ -53,4 +53,26 @@ public class UsuarioTest {
         usuario.setPerfilAtivo(perfil);
         assertEquals(perfil, usuario.getPerfilAtivo());
     }
+    
+    @Test
+    public void testComportamentoHerdadoDaMae() {
+        // Tecnico é a filha, mas consegue usar os métodos da mãe (Usuario)
+        Tecnico tecnico = new Tecnico();
+        tecnico.setLogin("fabricio.tec");
+        tecnico.setSenha("senha123");
+
+        assertTrue(tecnico.autenticar("fabricio.tec", "senha123"));
+    }
+
+    @Test
+    public void testComportamentoSobrescritoDasFilhas() {
+        // Cada classe deve devolver o seu próprio resultado
+        Usuario usuarioComum = new Usuario();
+        Tecnico tecnico = new Tecnico();
+        Solicitante solicitante = new Solicitante();
+
+        assertEquals("Usuário Padrão", usuarioComum.obterPapel());
+        assertEquals("Técnico de TI", tecnico.obterPapel());
+        assertEquals("Solicitante de Suporte", solicitante.obterPapel());
+    }
 }
