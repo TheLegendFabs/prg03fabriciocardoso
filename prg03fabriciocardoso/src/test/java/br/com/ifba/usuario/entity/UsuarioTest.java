@@ -75,4 +75,26 @@ public class UsuarioTest {
         assertEquals("Técnico de TI", tecnico.obterPapel());
         assertEquals("Solicitante de Suporte", solicitante.obterPapel());
     }
+    
+    @Test
+    public void testAutenticarFormaPadrao() {
+        // Task 05: Tipo geral à esquerda, chamando a forma padrão da classe mãe
+        br.com.ifba.usuario.inteface.Autenticavel pessoaComum = new Usuario("Maria", "maria.comum", "123");
+
+        // Autentica normalmente com a senha 123
+        assertTrue(pessoaComum.autenticar("maria.comum", "123"));
+    }
+
+    @Test
+    public void testAutenticarFormaTecnicoComSenhaMestre() {
+        // Task 05: Tipo geral à esquerda, mas instanciando a classe filha
+        Usuario objTecnico = new Tecnico();
+        objTecnico.setLogin("fabricio.admin");
+        objTecnico.setSenha("senha_normal_dele");
+
+        br.com.ifba.usuario.inteface.Autenticavel pessoaTecnica = objTecnico;
+
+        // Usa a segunda forma do método (Polimorfismo): Loga usando a senha mestre, ignorando a senha normal
+        assertTrue(pessoaTecnica.autenticar("fabricio.admin", "senha_mestre_ti"));
+    }
 }
