@@ -25,6 +25,17 @@ public class Usuario implements Autenticavel {
 
     // Task 03: Relacionamento 1..N usando List[cite: 8]
     private List<Perfil> perfis = new ArrayList<>();
+    
+    // Task 04: Construtor 1 (Vazio) - Permite criar o objeto e preencher depois
+    public Usuario() {
+    }
+
+    // Task 04: Construtor 2 (Com parâmetros) - Força a criação já com os dados obrigatórios
+    public Usuario(String nome, String login, String senha) {
+        this.nome = nome;
+        this.login = login;
+        this.senha = senha;
+    }
 
     // --- Getters e Setters Originais ---
     public String getNome() {

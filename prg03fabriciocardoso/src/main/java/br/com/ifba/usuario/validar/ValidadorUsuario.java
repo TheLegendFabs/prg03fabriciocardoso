@@ -35,4 +35,10 @@ public class ValidadorUsuario {
         return false;
     }
     
+    // Task 03: Método que recebe a interface (tipo geral) em vez do tipo concreto
+    public boolean processarAutenticacao(br.com.ifba.usuario.inteface.Autenticavel pessoa, String login, String senha) {
+        // Não há nenhum "if" ou "instanceof" aqui. O polimorfismo resolve sozinho!
+        return pessoa.autenticar(login, senha);
+    }
+    
 }
