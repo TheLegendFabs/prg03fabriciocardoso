@@ -144,4 +144,22 @@ public class Usuario implements Autenticavel {
     public String obterPapel() {
         return "Usuário Padrão";
     }
+    
+    // Justificativa: O campo escolhido para identificar a igualdade é o login, pois num sistema de chamados é a credencial única e não podem existir dois utilizadores com o mesmo acesso.[cite: 24]
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Usuario usuario = (Usuario) o;
+        return login != null ? login.equals(usuario.login) : usuario.login == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return login != null ? login.hashCode() : 0;
+    }
 }
