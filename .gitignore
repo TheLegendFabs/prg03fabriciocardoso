@@ -1,2 +1,5 @@
 /prg03fabriciocardoso/target/
 /prg03fabriciocardoso/nbproject/
+
+**/target/
+**/META-INF/persistence.xml

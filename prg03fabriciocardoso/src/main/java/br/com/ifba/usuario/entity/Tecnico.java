@@ -1,5 +1,10 @@
 package br.com.ifba.usuario.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.DiscriminatorValue;
+
+@Entity
+@DiscriminatorValue("TECNICO")
 public class Tecnico extends Usuario {
 
     @Override
