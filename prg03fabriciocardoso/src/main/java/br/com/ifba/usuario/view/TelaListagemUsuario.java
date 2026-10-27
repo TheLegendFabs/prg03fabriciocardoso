@@ -1,12 +1,18 @@
 package br.com.ifba.usuario.view;
 
 import javax.swing.JOptionPane;
+import br.com.ifba.usuario.dao.UsuarioDAO;
+import br.com.ifba.usuario.exception.UsuarioNaoEncontradoException;
+import br.com.ifba.usuario.exception.PersistenciaUsuarioException;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaListagemUsuario extends javax.swing.JFrame {
+    private final UsuarioDAO dao = new UsuarioDAO();
 
     public TelaListagemUsuario() {
         initComponents();
         setLocationRelativeTo(null);
+        atualizarListagem();
     }
 
     @SuppressWarnings("unchecked")
@@ -71,25 +77,58 @@ public class TelaListagemUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // A busca sera implementada na Parte 2.
+        atualizarListagem();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        new TelaCadastroUsuario().setVisible(true);
+        new TelaCadastroUsuario(this::atualizarListagem).setVisible(true);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        new TelaEdicaoUsuario().setVisible(true);
+        try {
+            new TelaEdicaoUsuario(dao.buscarPorId(idSelecionado()), this::atualizarListagem).setVisible(true);
+        } catch (UsuarioNaoEncontradoException | PersistenciaUsuarioException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage(), "Não foi possível editar", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        JOptionPane.showConfirmDialog(this, "Deseja excluir o usuario?", "Excluir usuario", JOptionPane.YES_NO_OPTION);
-        // Nesta atividade, nenhuma exclusao e realizada.
+        try {
+            Long id = idSelecionado();
+            if (JOptionPane.showConfirmDialog(this, "Deseja excluir o usuário?", "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                dao.excluir(id);
+                atualizarListagem();
+                JOptionPane.showMessageDialog(this, "Usuário excluído com sucesso.");
+            }
+        } catch (UsuarioNaoEncontradoException | PersistenciaUsuarioException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage(), "Não foi possível excluir", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void atualizarListagem() {
+        try {
+            var usuarios = dao.buscarPorNome(txtBusca.getText());
+            DefaultTableModel modelo = (DefaultTableModel) tabelaUsuarios.getModel();
+            modelo.setRowCount(0);
+            for (var usuario : usuarios) {
+                modelo.addRow(new Object[] {usuario.getId(), usuario.getNome(), usuario.getLogin(), usuario.getStatus()});
+            }
+        } catch (PersistenciaUsuarioException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage(), "Não foi possível listar", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private Long idSelecionado() {
+        int linha = tabelaUsuarios.getSelectedRow();
+        if (linha < 0) {
+            throw new UsuarioNaoEncontradoException("selecione um usuário na listagem");
+        }
+        return (Long) tabelaUsuarios.getValueAt(linha, 0);
+    }
 
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(() -> new TelaListagemUsuario().setVisible(true));

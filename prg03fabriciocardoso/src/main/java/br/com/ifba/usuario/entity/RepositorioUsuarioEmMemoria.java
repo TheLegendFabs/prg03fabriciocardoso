@@ -23,17 +23,10 @@ public class RepositorioUsuarioEmMemoria {
     }
 
     public Usuario buscarPorLogin(String login) {
-        // Task 03: Implementação 1 - Busca percorrendo a List com FOR[cite: 25]
-        /*
-        for (Usuario u : usuarios) {
-            if (u.getLogin().equals(login)) {
-                return u;
-            }
+        Usuario usuario = porLogin.get(login);
+        if (usuario == null) {
+            throw new br.com.ifba.usuario.exception.UsuarioNaoEncontradoException(login);
         }
-        return null;
-         */
-
-        // Task 03: Implementação 2 - Busca rápida usando o Map[cite: 25]
-        return porLogin.get(login);
+        return usuario;
     }
 }
