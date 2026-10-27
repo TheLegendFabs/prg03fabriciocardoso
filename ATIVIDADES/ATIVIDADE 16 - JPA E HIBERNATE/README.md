@@ -5,7 +5,16 @@ A numeracao 16 foi adotada conforme orientacao do aluno; o PDF da aula 17 usa a 
 ## Task 01 - Configuracao
 
 Hibernate ORM e driver PostgreSQL estao no pom.xml. PostgreSQL 18 esta instalado localmente.
-Copie `src/main/resources/META-INF/persistence.xml.exemplo` para `persistence.xml` na mesma pasta e preencha URL, usuario e senha localmente. Exemplo de URL: `jdbc:postgresql://localhost:5432/chamados`. Crie o banco antes de conectar.
+
+A configuracao local foi concluida em 27/10/2026:
+
+- Banco exclusivo do projeto: `chamados_poo`, em `localhost:5432`.
+- Usuario exclusivo: `chamados_poo_app`, sem permissoes de superusuario, criacao de bancos ou criacao de usuarios.
+- `src/main/resources/META-INF/persistence.xml` preenchido localmente com URL, usuario e senha gerada.
+- Conexao validada pelo cliente PostgreSQL e pela unidade de persistencia JPA `chamadosPU` do Hibernate.
+- O teste JPA executou apenas `SELECT current_database(), current_user`, confirmando o banco e o usuario acima. Nenhuma tabela ou registro foi criado pelo teste.
+
+Para configurar em outro computador, crie um banco exclusivo, copie `src/main/resources/META-INF/persistence.xml.exemplo` para `persistence.xml` na mesma pasta e preencha URL, usuario e senha localmente. A URL usada neste ambiente e `jdbc:postgresql://localhost:5432/chamados_poo`.
 O arquivo real esta ignorado pelo Git; o exemplo tem os campos de conexao em branco. Nenhuma credencial e publicada.
 A configuracao usa `hibernate.hbm2ddl.auto=none` para nao alterar automaticamente o banco existente. Nesta Parte 1, as telas nao abrem conexao nem fazem CRUD no banco.
 
@@ -28,7 +37,9 @@ As tres telas possuem arquivos .java e .form para o GUI Builder do NetBeans. Cad
 ## Task 05 - Testes
 
 A bateria original tem 18 testes. O pom foi ajustado para Java 25, instalado no computador, e AbsoluteLayout passou a usar coordenadas publicas do NetBeans no Maven Central no lugar do repositorio local ausente.
-Execute `mvn clean test` dentro do modulo. O teste adicional de metadados valida os mapeamentos Hibernate sem banco nem credenciais.
+Execute `mvn clean test` dentro do modulo. O teste adicional de metadados valida os mapeamentos Hibernate sem banco nem credenciais. A bateria passou com 19 testes, sem falhas.
+
+A verificacao da conexao real ao PostgreSQL foi feita separadamente, com a configuracao local ignorada pelo Git. Ela confirmou a abertura da unidade `chamadosPU` e a execucao de SELECT pelo Hibernate; nao inclui gravacao ou validacao de tabelas.
 
 ## Task 06 - DTO
 
