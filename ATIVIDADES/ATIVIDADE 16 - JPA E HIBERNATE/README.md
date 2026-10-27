@@ -1,6 +1,6 @@
 # Atividade 16 - JPA e Hibernate (Parte 1)
 
-A numeracao 16 foi adotada conforme orientacao do aluno; o PDF da aula 17 usa a numeracao 14. O projeto continua no modulo Maven `prg03fabriciocardoso`, como nas atividades anteriores.
+O projeto continua no modulo Maven `prg03fabriciocardoso`, como nas atividades anteriores.
 
 ## Task 01 - Configuracao
 
