@@ -1,10 +1,19 @@
 package br.com.ifba.usuario.entity;
 
 import br.com.ifba.usuario.inteface.Autenticavel;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "usuarios")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_usuario")
 public class Usuario implements Autenticavel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     // --- Atributos Originais ---
     private String nome;
@@ -13,17 +22,25 @@ public class Usuario implements Autenticavel {
     private String dataNascimento;
     private String telefone;
     private String email;
+    @Column(unique = true)
     private String login;
     private String senha;
 
     // --- Novos Atributos (Atividade 11) ---
     // Task 04: Atributo usando o Enum (inicia inativo)
+    @Enumerated(EnumType.STRING)
     private Status status = Status.INATIVO;
 
     // Task 02: Objeto como atributo[cite: 8]
+    @ManyToOne
+    @JoinColumn(name = "perfil_ativo_id")
     private Perfil perfilAtivo;
 
     // Task 03: Relacionamento 1..N usando List[cite: 8]
+    @ManyToMany
+    @JoinTable(name = "usuario_perfis",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "perfil_id"))
     private List<Perfil> perfis = new ArrayList<>();
     
     // Task 04: Construtor 1 (Vazio) - Permite criar o objeto e preencher depois
@@ -35,6 +52,14 @@ public class Usuario implements Autenticavel {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     // --- Getters e Setters Originais ---
