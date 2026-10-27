@@ -31,7 +31,8 @@ public class RepositorioUsuarioEmMemoriaTest {
     @Test
     public void testBuscarPorLoginInexistente() {
         RepositorioUsuarioEmMemoria repo = new RepositorioUsuarioEmMemoria();
-        assertNull(repo.buscarPorLogin("nao.existe"));
+        assertThrows(br.com.ifba.usuario.exception.UsuarioNaoEncontradoException.class,
+                () -> repo.buscarPorLogin("nao.existe"));
     }
 
     @Test
@@ -42,4 +43,12 @@ public class RepositorioUsuarioEmMemoriaTest {
 
         assertEquals(u1, u2);
     }
+    @Test
+    public void testBuscarUsuarioExistenteNaoLancaExcecao() {
+        RepositorioUsuarioEmMemoria repo = new RepositorioUsuarioEmMemoria();
+        Usuario usuario = new Usuario("Maria", "maria.login", "123456");
+        repo.cadastrar(usuario);
+        assertSame(usuario, assertDoesNotThrow(() -> repo.buscarPorLogin("maria.login")));
+    }
+
 }

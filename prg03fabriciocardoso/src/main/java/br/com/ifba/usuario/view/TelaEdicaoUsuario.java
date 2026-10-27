@@ -4,7 +4,10 @@
  */
 package br.com.ifba.usuario.view;
 
-import br.com.ifba.usuario.validar.ValidarUsuario;
+import br.com.ifba.usuario.dao.UsuarioDAO;
+import br.com.ifba.usuario.exception.PersistenciaUsuarioException;
+import br.com.ifba.usuario.exception.UsuarioNaoEncontradoException;
+import br.com.ifba.usuario.validar.ValidarCadastroUsuario;
 import javax.swing.JOptionPane;
 import br.com.ifba.usuario.entity.Usuario;
 
@@ -13,6 +16,10 @@ import br.com.ifba.usuario.entity.Usuario;
  * @author Alfa
  */
 public class TelaEdicaoUsuario extends javax.swing.JFrame {
+    private final UsuarioDAO dao = new UsuarioDAO();
+    private Runnable aoSalvar = () -> {};
+    private Usuario usuario;
+    private String senhaAtual;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaEdicaoUsuario.class.getName());
 
@@ -22,6 +29,20 @@ public class TelaEdicaoUsuario extends javax.swing.JFrame {
     public TelaEdicaoUsuario() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+
+    public TelaEdicaoUsuario(Usuario usuario, Runnable aoSalvar) {
+        this();
+        this.usuario = usuario;
+        this.senhaAtual = usuario.getSenha();
+        this.aoSalvar = aoSalvar;
+        txtNomeComp.setText(usuario.getNome());
+        txtCpf.setText(usuario.getCpf());
+        txtTelefone.setText(usuario.getTelefone());
+        txtDataNsc.setText(usuario.getDataNascimento());
+        txtEmail.setText(usuario.getEmail());
+        txtLogin.setText(usuario.getLogin());
+        boxGen.setSelectedItem(usuario.getGenero());
     }
 
     /**
@@ -204,7 +225,32 @@ public class TelaEdicaoUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirmPassWrdActionPerformed
 
     private void BtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConfirmarActionPerformed
-        // A persistencia sera implementada na Parte 2.
+        try {
+            if (usuario == null || usuario.getId() == null) {
+                throw new UsuarioNaoEncontradoException("selecione um usuário na listagem");
+            }
+            usuario.setNome(txtNomeComp.getText().trim());
+            usuario.setCpf(txtCpf.getText().trim());
+            usuario.setLogin(txtLogin.getText().trim());
+            usuario.setTelefone(txtTelefone.getText().trim());
+            usuario.setDataNascimento(txtDataNsc.getText().trim());
+            usuario.setEmail(txtEmail.getText().trim());
+            usuario.setGenero(String.valueOf(boxGen.getSelectedItem()));
+            String senha = new String(txtPassWrd.getPassword());
+            String confirmacao = new String(txtConfirmPassWrd.getPassword());
+            if (senha.isEmpty() && confirmacao.isEmpty()) {
+                senha = senhaAtual;
+                confirmacao = senha;
+            }
+            usuario.setSenha(senha);
+            new ValidarCadastroUsuario().validar(usuario, confirmacao);
+            dao.atualizar(usuario);
+            JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso.");
+            dispose();
+            aoSalvar.run();
+        } catch (UsuarioNaoEncontradoException | PersistenciaUsuarioException | IllegalArgumentException erro) {
+            JOptionPane.showMessageDialog(this, erro.getMessage(), "Não foi possível salvar", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_BtnConfirmarActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
