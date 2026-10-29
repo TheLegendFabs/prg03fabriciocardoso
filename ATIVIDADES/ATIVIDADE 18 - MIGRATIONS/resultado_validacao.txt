@@ -1,0 +1,6 @@
+INFORMA��ES: Migrating schema "public" to version "1 - criar usuarios e perfis"
+INFORMA��ES: Migrating schema "public" to version "2 - adicionar data cadastro"
+INFORMA��ES: Migrating schema "public" to version "3 - exigir login"
+INFORMA��ES: Successfully applied 3 migrations to schema "public", now at version v3 (execution time 00:00.060s)
+INFORMA��ES: Schema "public" is up to date. No migration necessary.
+[INFO] Tests run: 22, Failures: 0, Errors: 0, Skipped: 0

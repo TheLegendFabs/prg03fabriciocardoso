@@ -1,0 +1,2 @@
+ALTER TABLE usuarios
+    ALTER COLUMN login SET NOT NULL;

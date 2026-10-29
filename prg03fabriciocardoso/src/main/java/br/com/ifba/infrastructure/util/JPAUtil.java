@@ -16,7 +16,9 @@ public final class JPAUtil {
 
     public static synchronized EntityManager criarEntityManager() {
         if (fabrica == null || !fabrica.isOpen()) {
-            fabrica = Persistence.createEntityManagerFactory("chamadosPU");
+            var configuracao = MigracaoBanco.configuracao();
+            MigracaoBanco.migrar(configuracao);
+            fabrica = Persistence.createEntityManagerFactory("chamadosPU", configuracao);
         }
         return fabrica.createEntityManager();
     }
