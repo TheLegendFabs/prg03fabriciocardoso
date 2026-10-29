@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS chamados_poo_migrations_teste;
+CREATE DATABASE chamados_poo_migrations_teste OWNER chamados_poo_app;

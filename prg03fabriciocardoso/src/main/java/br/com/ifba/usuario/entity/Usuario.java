@@ -2,6 +2,7 @@ package br.com.ifba.usuario.entity;
 
 import br.com.ifba.usuario.inteface.Autenticavel;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +23,12 @@ public class Usuario implements Autenticavel {
     private String dataNascimento;
     private String telefone;
     private String email;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String login;
     private String senha;
+
+    @Column(name = "data_cadastro", nullable = false, updatable = false)
+    private LocalDateTime dataCadastro = LocalDateTime.now();
 
     // --- Novos Atributos (Atividade 11) ---
     // Task 04: Atributo usando o Enum (inicia inativo)
@@ -52,6 +56,10 @@ public class Usuario implements Autenticavel {
         this.nome = nome;
         this.login = login;
         this.senha = senha;
+    }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
     }
 
     public Long getId() {
