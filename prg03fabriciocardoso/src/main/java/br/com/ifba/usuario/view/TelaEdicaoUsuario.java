@@ -4,8 +4,9 @@
  */
 package br.com.ifba.usuario.view;
 
-import br.com.ifba.usuario.dao.UsuarioDAO;
-import br.com.ifba.usuario.exception.PersistenciaUsuarioException;
+import br.com.ifba.usuario.dao.UsuarioIDao;
+import br.com.ifba.usuario.dao.UsuarioDao;
+import br.com.ifba.infrastructure.exception.DaoException;
 import br.com.ifba.usuario.exception.UsuarioNaoEncontradoException;
 import br.com.ifba.usuario.validar.ValidarCadastroUsuario;
 import javax.swing.JOptionPane;
@@ -16,7 +17,7 @@ import br.com.ifba.usuario.entity.Usuario;
  * @author Alfa
  */
 public class TelaEdicaoUsuario extends javax.swing.JFrame {
-    private final UsuarioDAO dao = new UsuarioDAO();
+    private final UsuarioIDao dao = new UsuarioDao();
     private Runnable aoSalvar = () -> {};
     private Usuario usuario;
     private String senhaAtual;
@@ -244,11 +245,11 @@ public class TelaEdicaoUsuario extends javax.swing.JFrame {
             }
             usuario.setSenha(senha);
             new ValidarCadastroUsuario().validar(usuario, confirmacao);
-            dao.atualizar(usuario);
+            dao.update(usuario);
             JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso.");
             dispose();
             aoSalvar.run();
-        } catch (UsuarioNaoEncontradoException | PersistenciaUsuarioException | IllegalArgumentException erro) {
+        } catch (DaoException | IllegalArgumentException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage(), "Não foi possível salvar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BtnConfirmarActionPerformed
