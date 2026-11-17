@@ -2,6 +2,7 @@ package br.com.ifba.usuario.entity;
 
 import br.com.ifba.usuario.inteface.Autenticavel;
 import jakarta.persistence.*;
+import br.com.ifba.infrastructure.entity.PersistenceEntity;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +11,8 @@ import java.util.List;
 @Table(name = "usuarios")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_usuario")
-public class Usuario implements Autenticavel {
+public class Usuario extends PersistenceEntity implements Autenticavel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     // --- Atributos Originais ---
     private String nome;
@@ -62,13 +60,6 @@ public class Usuario implements Autenticavel {
         return dataCadastro;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     // --- Getters e Setters Originais ---
     public String getNome() {

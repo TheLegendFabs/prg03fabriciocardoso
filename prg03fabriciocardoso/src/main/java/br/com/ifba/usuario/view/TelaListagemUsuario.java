@@ -1,13 +1,14 @@
 package br.com.ifba.usuario.view;
 
 import javax.swing.JOptionPane;
-import br.com.ifba.usuario.dao.UsuarioDAO;
+import br.com.ifba.usuario.dao.UsuarioIDao;
+import br.com.ifba.usuario.dao.UsuarioDao;
 import br.com.ifba.usuario.exception.UsuarioNaoEncontradoException;
-import br.com.ifba.usuario.exception.PersistenciaUsuarioException;
+import br.com.ifba.infrastructure.exception.DaoException;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaListagemUsuario extends javax.swing.JFrame {
-    private final UsuarioDAO dao = new UsuarioDAO();
+    private final UsuarioIDao dao = new UsuarioDao();
 
     public TelaListagemUsuario() {
         initComponents();
@@ -86,8 +87,8 @@ public class TelaListagemUsuario extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
-            new TelaEdicaoUsuario(dao.buscarPorId(idSelecionado()), this::atualizarListagem).setVisible(true);
-        } catch (UsuarioNaoEncontradoException | PersistenciaUsuarioException erro) {
+            new TelaEdicaoUsuario(dao.findById(idSelecionado()), this::atualizarListagem).setVisible(true);
+        } catch (DaoException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage(), "Não foi possível editar", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
@@ -96,11 +97,11 @@ public class TelaListagemUsuario extends javax.swing.JFrame {
         try {
             Long id = idSelecionado();
             if (JOptionPane.showConfirmDialog(this, "Deseja excluir o usuário?", "Excluir usuário", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                dao.excluir(id);
+                dao.delete(id);
                 atualizarListagem();
                 JOptionPane.showMessageDialog(this, "Usuário excluído com sucesso.");
             }
-        } catch (UsuarioNaoEncontradoException | PersistenciaUsuarioException erro) {
+        } catch (DaoException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage(), "Não foi possível excluir", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -111,13 +112,13 @@ public class TelaListagemUsuario extends javax.swing.JFrame {
 
     private void atualizarListagem() {
         try {
-            var usuarios = dao.buscarPorNome(txtBusca.getText());
+            var usuarios = dao.findByNome(txtBusca.getText());
             DefaultTableModel modelo = (DefaultTableModel) tabelaUsuarios.getModel();
             modelo.setRowCount(0);
             for (var usuario : usuarios) {
                 modelo.addRow(new Object[] {usuario.getId(), usuario.getNome(), usuario.getLogin(), usuario.getStatus()});
             }
-        } catch (PersistenciaUsuarioException erro) {
+        } catch (DaoException erro) {
             JOptionPane.showMessageDialog(this, erro.getMessage(), "Não foi possível listar", JOptionPane.ERROR_MESSAGE);
         }
     }

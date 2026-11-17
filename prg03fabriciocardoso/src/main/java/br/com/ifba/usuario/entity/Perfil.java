@@ -1,21 +1,16 @@
 package br.com.ifba.usuario.entity;
 
 import jakarta.persistence.*;
+import br.com.ifba.infrastructure.entity.PersistenceEntity;
 
 @Entity
 @Table(name = "perfis")
-public class Perfil {
+public class Perfil extends PersistenceEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     public Perfil() {
     }
 
-    public Long getId() { return id; }
-
-    public void setId(Long id) { this.id = id; }
 
     private String nome;
     private String descricao;
