@@ -4,11 +4,10 @@
  */
 package br.com.ifba.usuario.view;
 
-import br.com.ifba.usuario.dao.UsuarioIDao;
-import br.com.ifba.usuario.dao.UsuarioDao;
+import br.com.ifba.usuario.controller.UsuarioIController;
+
 import br.com.ifba.infrastructure.exception.DaoException;
 import br.com.ifba.usuario.exception.UsuarioNaoEncontradoException;
-import br.com.ifba.usuario.validar.ValidarCadastroUsuario;
 import javax.swing.JOptionPane;
 import br.com.ifba.usuario.entity.Usuario;
 
@@ -17,25 +16,24 @@ import br.com.ifba.usuario.entity.Usuario;
  * @author Alfa
  */
 public class TelaEdicaoUsuario extends javax.swing.JFrame {
-    private final UsuarioIDao dao = new UsuarioDao();
+    private final UsuarioIController controller;
     private Runnable aoSalvar = () -> {};
     private Usuario usuario;
-    private String senhaAtual;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaEdicaoUsuario.class.getName());
 
     /**
      * Creates new form TelaEdicaoUsuario
      */
-    public TelaEdicaoUsuario() {
+    public TelaEdicaoUsuario(UsuarioIController controller) {
+        this.controller = controller;
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    public TelaEdicaoUsuario(Usuario usuario, Runnable aoSalvar) {
-        this();
+    public TelaEdicaoUsuario(UsuarioIController controller, Usuario usuario, Runnable aoSalvar) {
+        this(controller);
         this.usuario = usuario;
-        this.senhaAtual = usuario.getSenha();
         this.aoSalvar = aoSalvar;
         txtNomeComp.setText(usuario.getNome());
         txtCpf.setText(usuario.getCpf());
@@ -239,13 +237,8 @@ public class TelaEdicaoUsuario extends javax.swing.JFrame {
             usuario.setGenero(String.valueOf(boxGen.getSelectedItem()));
             String senha = new String(txtPassWrd.getPassword());
             String confirmacao = new String(txtConfirmPassWrd.getPassword());
-            if (senha.isEmpty() && confirmacao.isEmpty()) {
-                senha = senhaAtual;
-                confirmacao = senha;
-            }
             usuario.setSenha(senha);
-            new ValidarCadastroUsuario().validar(usuario, confirmacao);
-            dao.update(usuario);
+            controller.update(usuario, confirmacao);
             JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso.");
             dispose();
             aoSalvar.run();
@@ -284,7 +277,7 @@ public class TelaEdicaoUsuario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new TelaEdicaoUsuario().setVisible(true));
+        br.com.ifba.Aplicacao.main(args);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
