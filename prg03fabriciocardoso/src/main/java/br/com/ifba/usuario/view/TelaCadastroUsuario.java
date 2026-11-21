@@ -4,11 +4,10 @@
  */
 package br.com.ifba.usuario.view;
 
-import br.com.ifba.usuario.dao.UsuarioIDao;
-import br.com.ifba.usuario.dao.UsuarioDao;
+import br.com.ifba.usuario.controller.UsuarioIController;
+
 import br.com.ifba.infrastructure.exception.DaoException;
 import br.com.ifba.usuario.exception.UsuarioNaoEncontradoException;
-import br.com.ifba.usuario.validar.ValidarCadastroUsuario;
 import javax.swing.JOptionPane;
 import br.com.ifba.usuario.entity.Usuario;
 
@@ -17,7 +16,7 @@ import br.com.ifba.usuario.entity.Usuario;
  * @author Alfa
  */
 public class TelaCadastroUsuario extends javax.swing.JFrame {
-    private final UsuarioIDao dao = new UsuarioDao();
+    private final UsuarioIController controller;
     private Runnable aoSalvar = () -> {};
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName());
@@ -25,13 +24,14 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroUsuario
      */
-    public TelaCadastroUsuario() {
+    public TelaCadastroUsuario(UsuarioIController controller) {
+        this.controller = controller;
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    public TelaCadastroUsuario(Runnable aoSalvar) {
-        this();
+    public TelaCadastroUsuario(UsuarioIController controller, Runnable aoSalvar) {
+        this(controller);
         this.aoSalvar = aoSalvar;
     }
 
@@ -227,8 +227,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             String senha = new String(txtPassWrd.getPassword());
             String confirmacao = new String(txtConfirmPassWrd.getPassword());
             usuario.setSenha(senha);
-            new ValidarCadastroUsuario().validar(usuario, confirmacao);
-            dao.save(usuario);
+            controller.save(usuario, confirmacao);
             JOptionPane.showMessageDialog(this, "Usuário salvo com sucesso.");
             dispose();
             aoSalvar.run();
@@ -267,7 +266,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new TelaCadastroUsuario().setVisible(true));
+        br.com.ifba.Aplicacao.main(args);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
