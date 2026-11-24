@@ -1,0 +1,24 @@
+WARN: HHH000247: ErrorCode: 0, SQLState: 23505
+nov. 24, 2026 8:34:01 AM org.hibernate.engine.jdbc.spi.SqlExceptionHelper logExceptions
+WARN: ERROR: duplicate key value violates unique constraint "uk_usuarios_login"
+  Detalhe: Key (login)=(teste_b5a4583d-e851-4331-b743-186a7a5384bb) already exists.
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.108 s -- in br.com.ifba.usuario.entity.UsuarioDaoIntegracaoTest
+[INFO] Running br.com.ifba.usuario.entity.UsuarioTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.036 s -- in br.com.ifba.usuario.entity.UsuarioTest
+[INFO] Running br.com.ifba.usuario.service.AutenticacaoServiceTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in br.com.ifba.usuario.service.AutenticacaoServiceTest
+[INFO] Running br.com.ifba.usuario.service.UsuarioServiceTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.031 s -- in br.com.ifba.usuario.service.UsuarioServiceTest
+[INFO] Running br.com.ifba.usuario.validar.ValidadorUsuarioTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.010 s -- in br.com.ifba.usuario.validar.ValidadorUsuarioTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 35, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  16.972 s
+[INFO] Finished at: 2026-11-24T08:34:01-03:00
+[INFO] ------------------------------------------------------------------------

@@ -14,6 +14,10 @@ public class ValidarUsuario {
         
         
         String[] palavras = {"admin", "teste", "root", "senha123"};
+        return contemPalavraProibida(texto, palavras);
+    }
+
+    public static boolean contemPalavraProibida(String texto, String[] palavras) {
         
         for(String textoAux : palavras){
           if(textoAux.equals(texto)){

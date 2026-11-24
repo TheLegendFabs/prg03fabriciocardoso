@@ -219,13 +219,13 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         br.com.ifba.usuario.validar.ValidadorUsuario validador = new br.com.ifba.usuario.validar.ValidadorUsuario();
 
         // Substitui as validações antigas pelas chamadas aos métodos testáveis
-        if (!validador.camposPreenchidos(nomeCompleto, cpf, login, senha)) {
+        if (!validador.camposObrigatoriosPreenchidos(nomeCompleto, cpf, login, senha)) {
             javax.swing.JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
 
-        } else if (!validador.senhasCoincidem(senha, confirmarSenha)) {
+        } else if (!validador.senhaConfereComConfirmacao(senha, confirmarSenha)) {
             javax.swing.JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
 
-        } else if (!validador.senhaForte(senha)) {
+        } else if (!validador.senhaTemTamanhoMinimo(senha)) {
             javax.swing.JOptionPane.showMessageDialog(null, "A senha é fraca! Deve ter pelo menos 6 caracteres.");
 
         } else if (br.com.ifba.usuario.validar.ValidarUsuario.contemPalavraProibida(login)) {
