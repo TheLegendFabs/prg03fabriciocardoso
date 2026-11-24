@@ -2,4 +2,6 @@
 /prg03fabriciocardoso/nbproject/
 
 **/target/
-**/META-INF/persistence.xml
+
+
+/prg03fabriciocardoso/src/main/resources/application-local.properties
