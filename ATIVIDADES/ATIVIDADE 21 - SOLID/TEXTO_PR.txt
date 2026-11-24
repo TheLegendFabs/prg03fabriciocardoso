@@ -1,0 +1,1 @@
+SRP: autenticação separada de ValidadorUsuario em AutenticacaoService; OCP: ValidarUsuario recebe uma lista de palavras por parâmetro; cinco nomes melhorados e 35 testes aprovados.

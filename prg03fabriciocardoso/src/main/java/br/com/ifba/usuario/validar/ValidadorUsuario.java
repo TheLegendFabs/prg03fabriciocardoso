@@ -10,8 +10,7 @@ package br.com.ifba.usuario.validar;
  */
 public class ValidadorUsuario {
     
-    // Método para testar se há campos vazios
-    public boolean camposPreenchidos(String nome, String cpf, String login, String senha) {
+    public boolean camposObrigatoriosPreenchidos(String nome, String cpf, String login, String senha) {
         if (nome.isEmpty() || cpf.isEmpty() || login.isEmpty() || senha.isEmpty()) {
             return false;
         }
@@ -19,7 +18,7 @@ public class ValidadorUsuario {
     }
 
     // Método para testar se a senha tem o tamanho e os requisitos corretos
-    public boolean senhaForte(String senha) {
+    public boolean senhaTemTamanhoMinimo(String senha) {
         // Exemplo: se a senha for nula ou menor que 6 caracteres, é inválida
         if (senha == null || senha.length() < 6) {
             return false;
@@ -28,17 +27,11 @@ public class ValidadorUsuario {
     }
 
     // Método para verificar se as duas senhas inseridas coincidem
-    public boolean senhasCoincidem(String senha1, String senha2) {
-        if (senha1 != null && senha1.equals(senha2)) {
+    public boolean senhaConfereComConfirmacao(String senhaInformada, String confirmacaoSenha) {
+        if (senhaInformada != null && senhaInformada.equals(confirmacaoSenha)) {
             return true;
         }
         return false;
-    }
-    
-    // Task 03: Método que recebe a interface (tipo geral) em vez do tipo concreto
-    public boolean processarAutenticacao(br.com.ifba.usuario.inteface.Autenticavel pessoa, String login, String senha) {
-        // Não há nenhum "if" ou "instanceof" aqui. O polimorfismo resolve sozinho!
-        return pessoa.autenticar(login, senha);
     }
     
 }
