@@ -4,6 +4,7 @@ import br.com.ifba.infrastructure.dao.GenericDao;
 import br.com.ifba.usuario.entity.Usuario;
 import java.util.List;
 
+@org.springframework.stereotype.Repository
 public class UsuarioDao extends GenericDao<Usuario> implements UsuarioIDao {
     public UsuarioDao() { super(Usuario.class); }
 

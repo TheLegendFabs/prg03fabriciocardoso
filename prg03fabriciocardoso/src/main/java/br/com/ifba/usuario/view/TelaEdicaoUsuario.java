@@ -15,6 +15,8 @@ import br.com.ifba.usuario.entity.Usuario;
  *
  * @author Alfa
  */
+@org.springframework.stereotype.Component
+@org.springframework.context.annotation.Scope("prototype")
 public class TelaEdicaoUsuario extends javax.swing.JFrame {
     private final UsuarioIController controller;
     private Runnable aoSalvar = () -> {};
@@ -25,6 +27,7 @@ public class TelaEdicaoUsuario extends javax.swing.JFrame {
     /**
      * Creates new form TelaEdicaoUsuario
      */
+    @org.springframework.beans.factory.annotation.Autowired
     public TelaEdicaoUsuario(UsuarioIController controller) {
         this.controller = controller;
         initComponents();

@@ -4,6 +4,7 @@ import br.com.ifba.usuario.entity.Usuario;
 import br.com.ifba.usuario.dao.UsuarioIDao;
 import java.util.List;
 
+@org.springframework.stereotype.Service
 public class UsuarioService implements UsuarioIService {
     private final UsuarioIDao dao;
     public UsuarioService(UsuarioIDao dao) { this.dao = java.util.Objects.requireNonNull(dao); }

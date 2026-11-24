@@ -7,6 +7,8 @@ import br.com.ifba.usuario.exception.UsuarioNaoEncontradoException;
 import br.com.ifba.infrastructure.exception.DaoException;
 import javax.swing.table.DefaultTableModel;
 
+@org.springframework.stereotype.Component
+@org.springframework.context.annotation.Scope("prototype")
 public class TelaListagemUsuario extends javax.swing.JFrame {
     private final UsuarioIController controller;
 

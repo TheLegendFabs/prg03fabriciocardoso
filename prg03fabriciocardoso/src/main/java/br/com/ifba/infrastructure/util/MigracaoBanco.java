@@ -2,27 +2,27 @@ package br.com.ifba.infrastructure.util;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.parsers.DocumentBuilderFactory;
 import org.flywaydb.core.Flyway;
-import org.w3c.dom.Element;
 
 public final class MigracaoBanco {
     private MigracaoBanco() {
     }
 
     public static Map<String, Object> configuracao() {
-        try (var arquivo = MigracaoBanco.class.getResourceAsStream("/META-INF/persistence.xml")) {
-            if (arquivo == null) {
-                throw new IllegalStateException("Configure o arquivo META-INF/persistence.xml local.");
+        java.util.Properties propriedades = new java.util.Properties();
+        try {
+            for (String nome : new String[] {"/application.properties", "/application-local.properties"}) {
+                try (var arquivo = MigracaoBanco.class.getResourceAsStream(nome)) {
+                    if (arquivo != null) {
+                        propriedades.load(new java.io.InputStreamReader(arquivo, java.nio.charset.StandardCharsets.UTF_8));
+                    }
+                }
             }
-            var leitor = DocumentBuilderFactory.newInstance();
-            leitor.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-            var documento = leitor.newDocumentBuilder().parse(arquivo);
-            var propriedades = documento.getElementsByTagName("property");
             Map<String, Object> configuracao = new HashMap<>();
-            for (int i = 0; i < propriedades.getLength(); i++) {
-                Element propriedade = (Element) propriedades.item(i);
-                configuracao.put(propriedade.getAttribute("name"), propriedade.getAttribute("value"));
+            for (String nome : propriedades.stringPropertyNames()) {
+                if (nome.startsWith("jakarta.persistence.") || nome.startsWith("hibernate.")) {
+                    configuracao.put(nome, propriedades.getProperty(nome));
+                }
             }
             String urlTeste = System.getProperty("poo.jdbc.url");
             if (urlTeste != null) {
@@ -30,7 +30,7 @@ public final class MigracaoBanco {
             }
             return configuracao;
         } catch (Exception erro) {
-            throw new IllegalStateException("Não foi possível carregar a configuração local do banco.", erro);
+            throw new IllegalStateException("Não foi possível carregar application.properties.", erro);
         }
     }
 
