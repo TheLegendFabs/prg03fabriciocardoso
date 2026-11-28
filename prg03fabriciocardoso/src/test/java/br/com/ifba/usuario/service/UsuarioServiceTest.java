@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UsuarioServiceTest {
     private final FakeDao dao = new FakeDao();
-    private final UsuarioService service = new UsuarioService(dao);
+    private final UsuarioService service = new UsuarioService(dao.repository);
 
     private Usuario usuario() {
         Usuario usuario = new Usuario("Maria", "maria.login", "segura123");
