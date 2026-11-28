@@ -1,6 +1,6 @@
 package br.com.ifba.usuario.entity;
 
-import br.com.ifba.infrastructure.util.JPAUtil;
+import br.com.ifba.util.BancoTeste;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,12 +10,12 @@ class MigrationsIntegracaoTest {
     @Test
     void aplicaTresMigrationsEValidaNovamenteSemReaplicar() {
         conferirHistorico();
-        JPAUtil.fechar();
+        BancoTeste.fechar();
         conferirHistorico();
     }
 
     private void conferirHistorico() {
-        var em = JPAUtil.criarEntityManager();
+        var em = BancoTeste.contexto().getBean(jakarta.persistence.EntityManagerFactory.class).createEntityManager();
         try {
             var historico = em.createNativeQuery("select version from flyway_schema_history where type = 'SQL' and success order by installed_rank", String.class).getResultList();
             assertEquals(java.util.List.of("1", "2", "3"), historico);
